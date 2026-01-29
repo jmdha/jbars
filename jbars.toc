@@ -1,7 +1,7 @@
 ## Interface: 120000
 ## Title: jbars
 ## Author: Jan M. D. Hansen
-## Version: 3
+## Version: 4
 ## SavedVariables: jbarsDB
 
 jbars.lua

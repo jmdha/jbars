@@ -46,7 +46,6 @@ local function on_cooldown_desaturate(
 	button
 )
 	local duration
-	local action_type, action_id = GetActionInfo(button.action)
 
 	local cooldown = C_ActionBar.GetActionCooldown(button.action)
 	if cooldown and not cooldown.isOnGCD then
