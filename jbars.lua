@@ -49,11 +49,11 @@ local function on_cooldown_desaturate(
 	local action_type, action_id = GetActionInfo(button.action)
 
 	if action_type == 'item' then
-		local start_time, duration = C_Item.GetItemCooldown(action_id)
-		if duration > 1.5 then
-			duration = C_DurationUtil.CreateDuration()
-			duration:SetTimeFromStart(start_time, duration)
-		end
+		--local start_time, duration = C_Item.GetItemCooldown(action_id)
+		--if duration > 1.5 then
+		--	duration = C_DurationUtil.CreateDuration()
+		--	duration:SetTimeFromStart(start_time, duration)
+		--end
 	elseif action_type then
 		local cooldown = C_ActionBar.GetActionCooldown(button.action)
 		if cooldown and not cooldown.isOnGCD then
@@ -84,27 +84,26 @@ local function hide_self(
 	self:Hide()
 end
 
-local function hide_border(
-	button
-)
-	button.NormalTexture:Hide()
-	button.icon:RemoveMaskTexture(button.IconMask)
-end
-
 local function setup_hideborder(
 	button
 )
-	hide_border(button)
-	button:HookScript('OnShow', hide_border)
-	button.NormalTexture:HookScript('OnShow', hide_self)
-	button.HighlightTexture:SetAlpha(0)
-	button.CheckedTexture:SetAlpha(0)
-	button.SpellHighlightTexture:SetAlpha(0)
-	button.NewActionTexture:SetAlpha(0)
-	button.PushedTexture:SetAlpha(0)
-	button.Border:SetAlpha(0)
 	button.cooldown:SetAllPoints(button)
-	button.SpellCastAnimFrame:HookScript('OnShow', hide_self)
+	for _, e in next, {
+		button.IconMask,
+		button.Border,
+		button.HighlightTexture,
+		button.CheckedTexture,
+		button.SpellHighlightTexture,
+		button.NewActionTexture,
+		button.PushedTexture,
+		button.SlotBackground,
+		button.NormalTexture,
+		button.SpellCastAnimFrame
+	} do
+		e:SetAlpha(0)
+		e:Hide()
+		e:HookScript('OnShow', function(self) self:Hide() end)
+	end
 end
 
 local function setup_button(
