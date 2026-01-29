@@ -48,17 +48,9 @@ local function on_cooldown_desaturate(
 	local duration
 	local action_type, action_id = GetActionInfo(button.action)
 
-	if action_type == 'item' then
-		--local start_time, duration = C_Item.GetItemCooldown(action_id)
-		--if duration > 1.5 then
-		--	duration = C_DurationUtil.CreateDuration()
-		--	duration:SetTimeFromStart(start_time, duration)
-		--end
-	elseif action_type then
-		local cooldown = C_ActionBar.GetActionCooldown(button.action)
-		if cooldown and not cooldown.isOnGCD then
-			duration = C_ActionBar.GetActionCooldownDuration(button.action)
-		end
+	local cooldown = C_ActionBar.GetActionCooldown(button.action)
+	if cooldown and not cooldown.isOnGCD then
+		duration = C_ActionBar.GetActionCooldownDuration(button.action)
 	end
 
 	if duration then
